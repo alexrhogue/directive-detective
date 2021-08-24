@@ -1,0 +1,30 @@
+directive @withCustom on FIELD_DEFINITION 
+
+""" @model """
+type Note {
+  """ @id """
+  id: ID!
+  title: String!
+  description: String
+  """
+  @oneToMany(field: 'note')
+  """
+  comments: [Comment]!
+}
+
+""" @model """
+type Comment {
+  """ @id """
+  id: ID!
+  text: String
+  description: String
+}
+
+type Response {
+  custom: String @withCustom
+}
+
+type Query {
+  getDraftNotes: [Note]
+  getCustom: Response
+}
